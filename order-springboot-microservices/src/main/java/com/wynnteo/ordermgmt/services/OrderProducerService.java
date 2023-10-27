@@ -13,11 +13,21 @@ public class OrderProducerService {
   @Autowired
   private KafkaTemplate<String, OrderEvent> kafkaTemplate;
 
+  // public void sendOrder(@Valid OrderDto order) {
+  //   OrderEvent orderEvent = new OrderEvent();
+  //   orderEvent.setOrderId(order.getId());
+  //   orderEvent.setProductId(order.getProductId());
+  //   orderEvent.setQuantity(order.getQuantity());
+  //   kafkaTemplate.send("order-update-topic", orderEvent);
+  // }
+
   public void sendOrder(@Valid OrderDto order) {
     OrderEvent orderEvent = new OrderEvent();
     orderEvent.setOrderId(order.getId());
     orderEvent.setProductId(order.getProductId());
     orderEvent.setQuantity(order.getQuantity());
-    kafkaTemplate.send("order-update-topic", orderEvent);
+    orderEvent.setStatus("PENDING");
+
+    kafkaTemplate.send("order-requested", orderEvent);
   }
 }

@@ -29,9 +29,6 @@ public class OrderController {
   @Autowired
   OrderService orderService;
 
-  @Autowired
-  private OrderProducerService orderProducerService;
-
   @GetMapping
   public ResponseEntity<Map<String, Object>> getAllOrders() {
     List<OrderDto> orders = orderService.getAllOrders();
@@ -69,7 +66,6 @@ public class OrderController {
     @Valid @RequestBody OrderDto order
   ) {
     OrderDto createdOrder = orderService.createOrder(order);
-    orderProducerService.sendOrder(order);
     Map<String, Object> response = new HashMap<>();
     response.put("status", "success");
     response.put("statusCode", HttpStatus.CREATED.value());

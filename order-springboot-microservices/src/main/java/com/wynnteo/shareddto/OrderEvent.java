@@ -5,6 +5,7 @@ public class OrderEvent {
   private Long orderId;
   private Long productId;
   private int quantity;
+  private String status;
 
   public Long getOrderId() {
     return this.orderId;
@@ -28,5 +29,13 @@ public class OrderEvent {
 
   public void setQuantity(int quantity) {
     this.quantity = quantity;
+  }
+
+  public String getStatus() {
+    return this.status;
+  }
+
+  public void setStatus(String status) {
+    this.status = status;
   }
 }
